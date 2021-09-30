@@ -7,6 +7,8 @@ pipeline {
                 bat 'mvn clean package -DskipTests'
             }
         }
+
+        
         stage('Build Image') {
             steps {
                 script {
@@ -14,18 +16,16 @@ pipeline {
                 }
             }
         }
+
+
+
         stage('Push Image') {
             steps {
-                script {
-			        withCredentials([usernamePassword(credentialsId: 'eyalfl', passwordVariable: 'Robot7249'  usernameVariable: 'eyalfl')]
+			        withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass',  usernameVariable: 'user')]) {
 			        	// sh
 			        	bat "docker login --username=${user} --password=${pass}"
 			        	bat "docker push eyalfl/selenium-docker:latest"
-
-			        	app.push("${BUILD_NUMBER}")
-			            app.push("latest")
 			        }
-                }
             }
         }
     }
