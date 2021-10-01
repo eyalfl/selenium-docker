@@ -13,7 +13,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 // script {
-                bat "docker build -t='eyalfl/selenium-docker' ."
+                bat "docker build -t eyalfl/selenium-docker ."
                 //}
             }
         }
